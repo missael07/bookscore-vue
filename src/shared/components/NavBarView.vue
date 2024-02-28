@@ -1,20 +1,28 @@
 
 <template>
   <nav>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="25" height="25" />
-    <span v-if="$props.title">{{ $props.title }}</span>
+    <template v-if="!$props.isSecondary">
+      <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="25" height="25" />
+      <span v-if="$props.title">{{ $props.title }}</span>
+    </template>
     <RouterLink :to="{ name: route.name }" v-for="route in routerLinks" :key="route.name"> {{  route.title }}</RouterLink>
   </nav>
 </template>
 
 <script setup lang="ts">
-import { routerLinks } from '@/router/link-routes'
+
+import type { RouterLink } from '@/router/link-routes';
+
 interface Props {
   title?: string;
+  routerLinks: RouterLink[];
+  isSecondary?: boolean
 }
 
  const props = withDefaults(defineProps<Props>(), {
-  title: 'Book Score'
+  title: 'Book Score',
+  isSecondary: false
+  
  });
 
 </script>
